@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sentiment Analyzer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Sentiment Analyzer</h1>
+    <form method="POST" id="sentimentForm">
+      <textarea name="text" placeholder="Enter your text here..." id="textInput">{{ text }}</textarea>
+      <button type="submit">Analyze Sentiment</button>
+      <button type="button" class="reset-btn" onclick="resetForm()">Reset</button>
+    </form>
+
+    {% if sentiment %}
+    <div class="result" id="resultBlock">
+      <div class="sentiment-tag {{ sentiment }}">
+        <span class="emoji">{{ emoji }}</span>
+        <span class="label">{{ sentiment.upper() }}</span>
+      </div>
+      <div class="scores">
+        <div class="score">
+          <p>Polarity Score</p>
+          <p class="value">{{ polarity }}</p>
+        </div>
+        <div class="score">
+          <p>Subjectivity Score</p>
+          <p class="value">{{ subjectivity }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function resetForm() {
+      document.getElementById('textInput').value = '';
+      const result = document.getElementById('resultBlock');
+      if (result) result.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
